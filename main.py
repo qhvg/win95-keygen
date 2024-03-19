@@ -9,26 +9,28 @@ def usage():
 def cd():
     # XXX-YYYYYYY
     
-    # Generate random number in range 0-999.
-    # zfill makes sure the number has 3 digits.
+    # XXX does not matter, but it cannot be:
+    # 333, 444, 555, 666, 777, 888 or 999
     XXX = str(randint(0, 999)).zfill(3)
     # randint output converted to string for zfill.
+    # zfill will make sure XXX is 3 digits long.
     
-    # If XXX is invalid, generate again
+    # If XXX is one of the invalid numbers, generate again
     while XXX in [333, 444, 555, 666, 777, 888, 999]:
         XXX = str(randint(0, 999)).zfill(3)
 
-    # Random 7 digit number
+    # Sum of YYYYYYY digits has to be divisible by 7.
+    # Last digit cannot be 8 or 9.
     YYYYYYY = str(randint(0, 9999999)).zfill(7)
     # Sum all digits
     YYYYYYY_sum = sum(int(i) for i in str(YYYYYYY))
 
-    # Generate new YYYYYYY values when last digit is 8 or 9
-    # or when sum is not divisible by 7.
+    # When not divisible by 7 or last digit is 8/9, generate again
     while int(YYYYYYY[-1]) >= 8 or not YYYYYYY_sum % 7 == 0:
         YYYYYYY = str(randint(0, 9999999)).zfill(7)
         YYYYYYY_sum = sum(int(i) for i in str(YYYYYYY))
 
+    # Debug stuff
     #print(f"Last digit of Y: {int(YYYYYYY[-1])}")
     #print(f"YYYYYYY_sum % 7 == {YYYYYYY_sum%7}")
 
